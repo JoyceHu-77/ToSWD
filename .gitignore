@@ -40,3 +40,6 @@ redPodDependencies/*
 spacecommander/
 .clang-format
 Example/XYCNYModule.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.pbxproj
+*.xcuserstate
+*.xcbkptlist

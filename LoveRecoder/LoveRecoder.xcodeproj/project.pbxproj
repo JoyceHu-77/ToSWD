@@ -23,6 +23,7 @@
 		ED1CBEC22782F0B8000247CB /* PhotoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1CBEC02782F0B8000247CB /* PhotoEntity+CoreDataClass.swift */; };
 		ED1CBEC32782F0B8000247CB /* PhotoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1CBEC12782F0B8000247CB /* PhotoEntity+CoreDataProperties.swift */; };
 		ED48B09B27B7E2FB00E12338 /* UIView+extCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED48B09A27B7E2FB00E12338 /* UIView+extCorner.swift */; };
+		EDB9CEB1283796CE00291D74 /* AddInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9CEB0283796CE00291D74 /* AddInformationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		ED1CBEC02782F0B8000247CB /* PhotoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		ED1CBEC12782F0B8000247CB /* PhotoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		ED48B09A27B7E2FB00E12338 /* UIView+extCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extCorner.swift"; sourceTree = "<group>"; };
+		EDB9CEB0283796CE00291D74 /* AddInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInformationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				ED1CBEB62782E06F000247CB /* DataModel.swift */,
 				ED1CBEB82782E06F000247CB /* ImageCollectionViewCell.swift */,
 				ED1CBEB92782E06F000247CB /* PhotosCollectionViewController.swift */,
+				EDB9CEB0283796CE00291D74 /* AddInformationViewController.swift */,
 				ED1CBEBA2782E06F000247CB /* WaterFlowLayout.swift */,
 			);
 			path = PhotosCollectionView;
@@ -197,6 +200,7 @@
 				ED1CBEBF2782E06F000247CB /* WaterFlowLayout.swift in Sources */,
 				ED1CBE8B2782D2BF000247CB /* AppDelegate.swift in Sources */,
 				ED1CBEBC2782E06F000247CB /* PhotoPicker.swift in Sources */,
+				EDB9CEB1283796CE00291D74 /* AddInformationViewController.swift in Sources */,
 				ED1CBEC22782F0B8000247CB /* PhotoEntity+CoreDataClass.swift in Sources */,
 				ED1CBE952782D2BF000247CB /* PhotoRecoder.xcdatamodeld in Sources */,
 				ED1CBEBE2782E06F000247CB /* PhotosCollectionViewController.swift in Sources */,

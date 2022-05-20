@@ -14,7 +14,6 @@ class PhotosCollectionViewController: UIViewController {
     private let bgColor: UIColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
     
     let layout = WaterFlowLayout()
-    let photoPicker = PhotoPicker()
     
     let photoData = PhotoData()
     
@@ -24,18 +23,17 @@ class PhotosCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photoPicker.currentVC = self
-        photoPicker.photoPickerDelegate = self
         view.backgroundColor = bgColor
         self.view.addSubview(collectView)
-//        self.view.addSubview(btn)
         self.view.addSubview(navigationBar)
         self.view.addSubview(toolBarStackView)
         loadEntityData()
     }
     
     @objc func addButtonClicked() {
-        photoPicker.goImage()
+        let addVC = AddInformationViewController()
+        addVC.addInformationDelegate = self
+        self.present(addVC, animated: true, completion: nil)
     }
     
     @objc func columnCountButtonClicked(sender: UIButton) {
@@ -50,8 +48,14 @@ class PhotosCollectionViewController: UIViewController {
     func loadEntityData() {
         let entitys = photoData.fetchRequestEntity()
         entitys.forEach { entity in
-            guard let imageData = entity.photoImage, let image = UIImage(data: imageData) else { return }
-            loadModelData(image: image, des: nil)
+            guard let imageData = entity.photoImage,
+                  let image = UIImage(data: imageData),
+                  let des = entity.des
+            else {
+                return
+            }
+            
+            loadModelData(image: image, des: des)
         }
         collectView.reloadData()
     }
@@ -67,7 +71,6 @@ class PhotosCollectionViewController: UIViewController {
     
     private lazy var collectView: UICollectionView = {
         layout.layout(dataA: dataModels, columns: 2, marginLeft: marginLeft, marginRight: 10, marginMinH: 10, marginMinV: 10)
-        //        let layout = UICollectionViewFlowLayout()
         let frame = CGRect(x: 0, y: navigationBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - navigationBarHeight - 100)
         let collectView = UICollectionView.init(frame: frame, collectionViewLayout: layout)
         collectView.backgroundColor = bgColor
@@ -111,7 +114,7 @@ class PhotosCollectionViewController: UIViewController {
     
     private lazy var addButton: UIButton = {
         let addButton = UIButton()
-        addButton.setImage(UIImage(named: "add"), for: .normal)
+        addButton.setImage(UIImage(named: "add_round"), for: .normal)
         addButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
         return addButton
     }()
@@ -133,8 +136,6 @@ class PhotosCollectionViewController: UIViewController {
         memorialDayButton.addTarget(self, action: #selector(memorialDayButtonClicked), for: .touchUpInside)
         return memorialDayButton
     }()
-    
-    
 }
 
 
@@ -153,17 +154,18 @@ extension PhotosCollectionViewController: UICollectionViewDelegate, UICollection
         let height = curItemHArr[indexPath.row] - model.labelHeight
         cell.imageView.frame = CGRect(x: 0, y: 0, width: curItemWArr[indexPath.row], height: height)
         cell.imageView.image = model.image
-        cell.descriptionLabel.text = "平安喜乐平安喜乐"
+        cell.descriptionLabel.text = model.labelTitle
         cell.descriptionLabel.frame = CGRect(x: 8, y: height, width: curItemWArr[indexPath.row] - 16, height: 50)
         return cell
     }
 }
 
-// MARK: - PhotoPickerGetImage
-extension PhotosCollectionViewController: PhotoPickerGetImage {
-    func getImage(image: UIImage) {
-        loadModelData(image: image, des: nil)
-        photoData.addPhotoData(image: image, des: nil)
+
+// MARK: - AddInformationVCDelegate
+extension PhotosCollectionViewController: AddInformationVCDelegate {
+    func getInformation(image: UIImage, des: String) {
+        loadModelData(image: image, des: des)
+        photoData.addPhotoData(image: image, des: des)
         self.collectView.reloadData()
     }
 }

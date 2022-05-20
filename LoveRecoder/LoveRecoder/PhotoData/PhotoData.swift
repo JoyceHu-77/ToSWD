@@ -26,7 +26,7 @@ class PhotoData: NSObject {
         return entityArray
     }
     
-    func addPhotoData(image: UIImage, des: String? ) {
+    func addPhotoData(image: UIImage, des: String ) {
 //        let pngImageData = image.pngData()
         let pngImageData = image.jpegData(compressionQuality: 1.0)
         
