@@ -89,8 +89,8 @@ extension PhotosCollectionViewController: UICollectionViewDelegate, UICollection
         let height = curItemHArr[indexPath.row] - model.labelHeight
         cell.imageView.frame = CGRect(x: 0, y: 0, width: curItemWArr[indexPath.row], height: height)
         cell.imageView.image = model.image
-        cell.descriptionLabel.text = "平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐平安喜乐"
-        cell.descriptionLabel.frame = CGRect(x: 5, y: height, width: curItemWArr[indexPath.row] - 10, height: 50)
+        cell.descriptionLabel.text = "平安喜乐平安喜乐"
+        cell.descriptionLabel.frame = CGRect(x: 8, y: height, width: curItemWArr[indexPath.row] - 16, height: 50)
         return cell
     }
 }

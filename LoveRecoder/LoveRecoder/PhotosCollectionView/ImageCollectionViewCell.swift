@@ -29,17 +29,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         contentView.addSubview(imageView)
         contentView.addSubview(descriptionLabel)
-//        addDesLable()
-    }
-    
-    private func addDesLable() {
-        contentView.addSubview(descriptionLabel)
-        let constraints = [
-            descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-            descriptionLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            descriptionLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
     }
     
     required init?(coder: NSCoder) {
