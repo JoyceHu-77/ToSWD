@@ -9,13 +9,14 @@ import UIKit
 
 class PhotosCollectionViewController: UIViewController {
     
+    private let navigationBarHeight: CGFloat = 120
+    private let marginLeft: CGFloat = 10
+    private let bgColor: UIColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+    
     let layout = WaterFlowLayout()
     let photoPicker = PhotoPicker()
     
     let photoData = PhotoData()
-    
-    //TODO
-    var descriptionImage = ""
     
     var dataModels = [DataModel]()
     var curItemWArr = [CGFloat]()
@@ -25,33 +26,25 @@ class PhotosCollectionViewController: UIViewController {
         super.viewDidLoad()
         photoPicker.currentVC = self
         photoPicker.photoPickerDelegate = self
+        view.backgroundColor = bgColor
         self.view.addSubview(collectView)
-        self.view.addSubview(btn)
+//        self.view.addSubview(btn)
+        self.view.addSubview(navigationBar)
+        self.view.addSubview(toolBarStackView)
         loadEntityData()
     }
     
-    lazy var btn: UIButton = { () -> UIButton in
-        var value = UIButton(frame: CGRect(x: 0, y: view.frame.height / 4 + view.frame.height / 2, width: view.frame.width, height: view.frame.height / 8))
-        value.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 0.6761153265)
-        value.setTitle("open photo library", for: .normal)
-        value.addTarget(self, action: #selector(createDataModel), for: .touchUpInside)
-        return value
-    }()
-    
-    lazy var collectView: UICollectionView = {
-        layout.layout(dataA: dataModels, columns: 2, marginLeft: 10, marginRight: 10, marginMinH: 10, marginMinV: 10)
-//        let layout = UICollectionViewFlowLayout()
-        let collectView = UICollectionView.init(frame: self.view.bounds, collectionViewLayout: layout)
-        collectView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        collectView.delegate = self
-        collectView.dataSource = self
-        collectView.showsVerticalScrollIndicator = true
-        collectView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(ImageCollectionViewCell.self))
-        return collectView
-    }()
-    
-    @objc func createDataModel() {
+    @objc func addButtonClicked() {
         photoPicker.goImage()
+    }
+    
+    @objc func columnCountButtonClicked(sender: UIButton) {
+        sender.isSelected.toggle()
+        // TODO
+    }
+     
+    @objc func memorialDayButtonClicked() {
+        // TODO
     }
     
     func loadEntityData() {
@@ -71,6 +64,77 @@ class PhotosCollectionViewController: UIViewController {
         curItemHArr.append(imageSize.itemH)
         curItemWArr.append(imageSize.itemW)
     }
+    
+    private lazy var collectView: UICollectionView = {
+        layout.layout(dataA: dataModels, columns: 2, marginLeft: marginLeft, marginRight: 10, marginMinH: 10, marginMinV: 10)
+        //        let layout = UICollectionViewFlowLayout()
+        let frame = CGRect(x: 0, y: navigationBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - navigationBarHeight - 100)
+        let collectView = UICollectionView.init(frame: frame, collectionViewLayout: layout)
+        collectView.backgroundColor = bgColor
+        collectView.delegate = self
+        collectView.dataSource = self
+        collectView.showsVerticalScrollIndicator = true
+        collectView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(ImageCollectionViewCell.self))
+        return collectView
+    }()
+    
+    private lazy var navigationBar: UINavigationBar = {
+        let navigationBar = UINavigationBar()
+        navigationBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: navigationBarHeight)
+        navigationBar.backgroundColor = bgColor
+        navigationBar.addSubview(navigationBarLabel)
+        return navigationBar
+    }()
+    
+    private lazy var navigationBarLabel: UILabel = {
+        let navigationBarLabel = UILabel(frame: CGRect(x: marginLeft, y: 70, width: 500, height: 30))
+        navigationBarLabel.text = "HCY To SWD 💐"
+        navigationBarLabel.textAlignment = .left
+        navigationBarLabel.textColor = .black
+        navigationBarLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        return navigationBarLabel
+    }()
+    
+    private lazy var toolBarStackView: UIStackView = {
+        let toolBarStackView = UIStackView(frame: CGRect(x: 0, y: self.view.frame.height - 100, width: self.view.frame.width, height: 80))
+        toolBarStackView.backgroundColor = bgColor
+        toolBarStackView.axis = .horizontal
+        toolBarStackView.alignment = .fill
+        toolBarStackView.distribution = .fillEqually
+        toolBarStackView.spacing = 0
+        
+        toolBarStackView.addArrangedSubview(columnCountButton)
+        toolBarStackView.addArrangedSubview(addButton)
+        toolBarStackView.addArrangedSubview(memorialDayButton)
+        return toolBarStackView
+    }()
+    
+    private lazy var addButton: UIButton = {
+        let addButton = UIButton()
+        addButton.setImage(UIImage(named: "add"), for: .normal)
+        addButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
+        return addButton
+    }()
+    
+    private lazy var columnCountButton: UIButton = {
+        let columnCountButton = UIButton()
+        columnCountButton.setTitle("x2", for: .normal)
+        columnCountButton.setTitle("x4", for: .selected)
+        columnCountButton.setTitleColor(.black, for: .normal)
+        columnCountButton.setTitleColor(.black, for: .selected)
+        columnCountButton.addTarget(self, action: #selector(columnCountButtonClicked), for: .touchUpInside)
+        return columnCountButton
+    }()
+    
+    private lazy var memorialDayButton: UIButton = {
+        let memorialDayButton = UIButton()
+        memorialDayButton.setTitle("days", for: .normal)
+        memorialDayButton.setTitleColor(.black, for: .normal)
+        memorialDayButton.addTarget(self, action: #selector(memorialDayButtonClicked), for: .touchUpInside)
+        return memorialDayButton
+    }()
+    
+    
 }
 
 
@@ -103,6 +167,7 @@ extension PhotosCollectionViewController: PhotoPickerGetImage {
         self.collectView.reloadData()
     }
 }
+
 
 
 

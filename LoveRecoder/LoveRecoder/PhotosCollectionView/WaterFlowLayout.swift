@@ -69,7 +69,7 @@ class WaterFlowLayout: UICollectionViewFlowLayout {
         let indexpath = IndexPath(item: itemNum, section: 0)
         let attrs = UICollectionViewLayoutAttributes(forCellWith: indexpath)
         //计算每个宽度
-        let allwidth = (self.collectionView?.bounds.size.width)!
+        let allwidth = (self.collectionView?.bounds.size.width) ?? 0
         let marginleft = self.sectionInset.left
         let marginRight = self.sectionInset.right
         let totalMargin:CGFloat = ((CGFloat)(lie - 1) * self.minimumInteritemSpacing)
